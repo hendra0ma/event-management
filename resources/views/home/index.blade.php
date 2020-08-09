@@ -39,7 +39,10 @@
                     <table width="100%">
                         <tr>
                             <th> {{$text->nama}} </th>
+                            @if ($text->kegiatanModel == "[]")
                             <td rowspan="2"><a href="/home/delete/{{$text->id}}"class="badge badge-danger"> hapus </a></td>
+                            @else
+                            @endif
                             <td rowspan="2"><a href="" data-toggle="modal"data-target="#editEvent{{$text->id}}"  class="badge badge-dark"> edit </a></td>
                             <td rowspan="2"><a href="" data-toggle="modal"data-target="#insertKegiatan{{$text->id}}" class="badge badge-secondary"> tambah kegiatan </a></td>
                         </tr>
@@ -54,8 +57,12 @@
                         @foreach($text->kegiatanModel as $textme)
                             <li>
                                {{$textme->nama_kegiatan}} 
-                                <a href="/home/kegiatan/delete/{{$textme->id}}"class="badge badge-danger float-right">hapus</a>
-                            </li>
+                               <span class="float-right">
+                                <a href="/home/kegiatan/delete/{{$textme->id}}"class="badge badge-danger">hapus</a>
+                                
+                                <a href="#updateKegiatan{{$textme->id}}"class="badge badge-dark"data-toggle="modal"> pindah  </a>
+                                </span>
+                            </li></br>
                         @endforeach
                         </ul>
 
@@ -162,6 +169,35 @@
     </div>
   </div>
 </div>
+@foreach($text->kegiatanModel as $textme)
+<div class="modal fade" id="updateKegiatan{{$textme->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">insert</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="/home/kegiatan/update/{{$text->id}}"class="form-group"method="post">
+      {{csrf_field()}}
+        <div class="modal-body">
+            pindah ke : <br>  
+            <select name="id" class="form-control">
+            @foreach($data as $textme)
+              <option value="{{$textme->id}}">{{$textme->nama}}</option>
+              @endforeach
+            </select>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <input type="submit" value="submit"class="btn btn-primary">
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+@endforeach
 @endforeach
 
 

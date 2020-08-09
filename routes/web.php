@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/home');
 });
 
 
@@ -34,5 +34,6 @@ Route::post('/home/peralatan/update/{id}',"Peralatan@update");
 //untuk controller kegiatan
 Route::post('/home/kegiatan/insert',"Kegiatan@insert");
 Route::get('/home/kegiatan/delete/{id}',"Kegiatan@delete");
+Route::post('/home/kegiatan/update/{id}',"Kegiatan@update");
 
 

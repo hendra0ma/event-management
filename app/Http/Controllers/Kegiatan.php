@@ -27,4 +27,11 @@ class Kegiatan extends Controller
         KegiatanModel::where("id",$id)->delete();
         return redirect("/home");
     }
+    public function update(Request $req,$id)    
+    {
+        KegiatanModel::where("id",$id)->update([
+            "event_models_id"=> $req->input("id")
+        ]);
+        return redirect("/home");
+    }
 }
